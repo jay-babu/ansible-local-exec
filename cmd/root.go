@@ -5,12 +5,16 @@ Copyright © 2022 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"log"
 	"os"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 )
 
-
+type source struct {
+	source string
+}
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -24,7 +28,20 @@ This application is a tool to generate the needed files
 to quickly create a Cobra application.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		file, _ := cmd.Flags().GetString("source")
+		s := source{
+			source: file,
+		}
+
+		local := exec.Command("ansible-playbook", "--connection", "local", "--inventory", "127.0.0.1,", "-K", s.source)
+		local.Stdout = os.Stdout
+		local.Stderr = os.Stderr
+		err := local.Run()
+		if err != nil {
+			log.Fatal(err)
+		}
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -46,6 +63,6 @@ func init() {
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.Flags().StringP("source", "s", "", "File to run")
+	rootCmd.MarkFlagRequired("source")
 }
-
-
