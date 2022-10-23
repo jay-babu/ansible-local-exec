@@ -1,5 +1,5 @@
 /*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+Copyright © 2022 Jay Patel 36803168+jayp0521@users.noreply.github.com
 
 */
 package cmd
@@ -13,7 +13,7 @@ import (
 )
 
 type source struct {
-	source string
+	file string
 }
 
 // rootCmd represents the base command when called without any subcommands
@@ -31,10 +31,10 @@ to quickly create a Cobra application.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		file, _ := cmd.Flags().GetString("source")
 		s := source{
-			source: file,
+			file: file,
 		}
 
-		local := exec.Command("ansible-playbook", "--connection", "local", "--inventory", "127.0.0.1,", "-K", s.source)
+		local := exec.Command("ansible-playbook", "--connection", "local", "--inventory", "127.0.0.1,", "-K", s.file)
 		local.Stdout = os.Stdout
 		local.Stderr = os.Stderr
 		err := local.Run()
@@ -44,8 +44,10 @@ to quickly create a Cobra application.`,
 	},
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately.
-// This is called by main.main(). It only needs to happen once to the rootCmd.
+/**
+Execute adds all child commands to the root command and sets flags appropriately.
+This is called by main.main(). It only needs to happen once to the rootCmd.
+*/
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
