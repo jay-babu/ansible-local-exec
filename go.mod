@@ -1,4 +1,4 @@
-module github.com/jayp0521/ansible-local-exec
+module github.com/jay-babu/ansible-local-exec
 
 go 1.19
 
