@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/jay-babu/ansible-local-exec/compare/v1.0.0...v1.1.0) (2023-12-30)
+
+
+### Features
+
+* Update ci.yml ([1ee150f](https://github.com/jay-babu/ansible-local-exec/commit/1ee150fc0ec39635873f9744f4adf7abd992ab64))
+
 ## 1.0.0 (2023-02-17)
 
 
