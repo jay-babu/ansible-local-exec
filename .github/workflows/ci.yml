@@ -4,6 +4,11 @@ on:
       branches:
         - "main"
   pull_request:
+
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   generateTOC:
     if: ${{ github.ref == 'refs/heads/main' }}
